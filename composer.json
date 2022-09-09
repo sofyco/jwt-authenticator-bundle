@@ -1,0 +1,41 @@
+{
+    "name": "sofyco/jwt-authenticator-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony JWT Authenticator Bundle",
+    "keywords": ["php", "symfony", "bundle", "security", "jwt", "authenticator"],
+    "homepage": "https://github.com/sofyco/jwt-authenticator-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sofy Korzhova",
+            "email": "sofykorzhova@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "lcobucci/jwt": "^4.2",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/messenger": "^6.0",
+        "symfony/security-bundle": "^6.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.8",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "^6.0",
+        "symfony/yaml": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sofyco\\Bundle\\JwtAuthenticatorBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sofyco\\Bundle\\JwtAuthenticatorBundle\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}

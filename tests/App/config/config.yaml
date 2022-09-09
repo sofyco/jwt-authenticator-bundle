@@ -1,0 +1,23 @@
+framework:
+    test: ~
+    secret: 098f6bcd4621d373cade4e832627b4f6
+
+security:
+    providers:
+        backend_users:
+            memory:
+                users:
+                    khaperets: { password: 'russian_warship_go_fuck_yourself', roles: ['IS_AUTHENTICATED_FULLY'] }
+                    expired: { password: 'russian_warship_go_fuck_yourself', roles: ['IS_AUTHENTICATED_FULLY'] }
+    firewalls:
+        main:
+            pattern: ^/
+            custom_authenticators:
+                - Sofyco\Bundle\JwtAuthenticatorBundle\Security\Guard\TokenAuthenticator
+    access_control:
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+
+services:
+    Sofyco\Bundle\JwtAuthenticatorBundle\Tests\App\MessageHandler\:
+        resource: '../MessageHandler/'
+        autoconfigure: true
