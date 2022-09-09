@@ -30,12 +30,14 @@ final class TokenAuthenticator extends AbstractAuthenticator
 
     public function supports(Request $request): ?bool
     {
-        return null !== $this->getAuthorizationToken($request);
+        $header = $request->headers->get(self::HEADER_NAME);
+
+        return null !== $header && \str_starts_with($header, self::HEADER_VALUE_PREFIX);
     }
 
     public function authenticate(Request $request): Passport
     {
-        $token = $this->getAuthorizationToken($request);
+        $token = \str_replace(self::HEADER_VALUE_PREFIX, '', (string) $request->headers->get(self::HEADER_NAME));
 
         if (empty($token)) {
             throw new Exception\TokenAbsentException();
@@ -50,7 +52,7 @@ final class TokenAuthenticator extends AbstractAuthenticator
         try {
             $this->messageBus->dispatch(new AuthenticationSuccess(
                 userIdentifier: $userIdentifier,
-                token: (string) $this->getAuthorizationToken($request),
+                token: $token,
                 ip: (string) $request->getClientIp(),
             ));
         } catch (HandlerFailedException $exception) {
@@ -76,16 +78,5 @@ final class TokenAuthenticator extends AbstractAuthenticator
         }
 
         return new JsonResponse(['message' => $message], Response::HTTP_UNAUTHORIZED);
-    }
-
-    private function getAuthorizationToken(Request $request): ?string
-    {
-        $header = $request->headers->get(self::HEADER_NAME);
-
-        if (null === $header || false === \str_starts_with($header, self::HEADER_VALUE_PREFIX)) {
-            return null;
-        }
-
-        return \str_replace(self::HEADER_VALUE_PREFIX, '', $header);
     }
 }
