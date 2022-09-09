@@ -7,12 +7,12 @@ use Sofyco\Bundle\JwtAuthenticatorBundle\Security\Encoder\JwtEncoder;
 use Sofyco\Bundle\JwtAuthenticatorBundle\Security\Guard\TokenAuthenticator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-final class JwtAuthenticatorExtension extends Extension
+final class JwtAuthenticatorExtension extends ConfigurableExtension
 {
-    public function load(array $configs, ContainerBuilder $container): void
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $signer = new Definition(JWT\Signer\Hmac\Sha256::class);
         $container->setDefinition(JWT\Signer::class, $signer);
@@ -28,7 +28,7 @@ final class JwtAuthenticatorExtension extends Extension
         $configuration->setFactory([JWT\Configuration::class, 'forSymmetricSigner']);
         $container->setDefinition(JWT\Configuration::class, $configuration);
 
-        $encoder = new Definition(JwtEncoder::class, [new Reference(JWT\Configuration::class), '+7 days']);
+        $encoder = new Definition(JwtEncoder::class, [new Reference(JWT\Configuration::class), $mergedConfig['ttl']]);
         $container->setDefinition(JwtEncoder::class, $encoder);
 
         $authenticator = new Definition(TokenAuthenticator::class);
