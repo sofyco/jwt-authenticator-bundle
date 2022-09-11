@@ -32,7 +32,7 @@ final class JwtAuthenticatorExtension extends ConfigurableExtension
         $container->setDefinition(JwtEncoder::class, $encoder);
 
         $authenticator = new Definition(TokenAuthenticator::class);
-        $authenticator->setAutowired(true);
+        $authenticator->setAutoconfigured(true);
         $container->setDefinition(TokenAuthenticator::class, $authenticator);
     }
 }
