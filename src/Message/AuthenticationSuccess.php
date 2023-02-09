@@ -2,9 +2,9 @@
 
 namespace Sofyco\Bundle\JwtAuthenticatorBundle\Message;
 
-final class AuthenticationSuccess
+final readonly class AuthenticationSuccess
 {
-    public function __construct(public readonly string $userIdentifier, public readonly string $token, public readonly string $ip)
+    public function __construct(public string $userIdentifier, public string $token, public string $ip)
     {
     }
 }
