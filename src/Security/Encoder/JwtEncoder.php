@@ -12,12 +12,12 @@ final class JwtEncoder
     {
     }
 
-    public function encode(string $id): string
+    public function encode(string $id, ?string $ttl = null): string
     {
         return $this->configuration
             ->builder()
             ->issuedAt(new \DateTimeImmutable())
-            ->expiresAt(new \DateTimeImmutable($this->ttl))
+            ->expiresAt(new \DateTimeImmutable($ttl ?: $this->ttl))
             ->withClaim(self::IDENTIFIER_KEY, $id)
             ->getToken($this->configuration->signer(), $this->configuration->signingKey())
             ->toString();
