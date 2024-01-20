@@ -20,9 +20,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 
 final class TokenAuthenticator extends AbstractAuthenticator
 {
-    public const BAD_CREDENTIALS_MESSAGE = 'security.auth.jwt.badCredentials';
-    public const HEADER_NAME = 'Authorization';
-    public const HEADER_VALUE_PREFIX = 'Bearer ';
+    public const string BAD_CREDENTIALS_MESSAGE = 'security.auth.jwt.badCredentials';
+    public const string HEADER_NAME = 'Authorization';
+    public const string HEADER_VALUE_PREFIX = 'Bearer ';
 
     public function __construct(private readonly JwtEncoder $encoder, private readonly MessageBusInterface $messageBus)
     {
@@ -56,7 +56,7 @@ final class TokenAuthenticator extends AbstractAuthenticator
                 ip: (string) $request->getClientIp(),
             ));
         } catch (HandlerFailedException $exception) {
-            if (false !== $exception = \current($exception->getNestedExceptions())) {
+            if (false !== $exception = \current($exception->getWrappedExceptions())) {
                 throw new CustomUserMessageAuthenticationException($exception->getMessage());
             }
         }

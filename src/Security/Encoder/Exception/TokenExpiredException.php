@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 
 final class TokenExpiredException extends CustomUserMessageAuthenticationException
 {
-    public const MESSAGE = 'security.auth.jwt.expired';
+    public const string MESSAGE = 'security.auth.jwt.expired';
 
     public function __construct()
     {

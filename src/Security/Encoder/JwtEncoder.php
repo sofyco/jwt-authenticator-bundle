@@ -6,7 +6,7 @@ use Lcobucci\JWT;
 
 final class JwtEncoder
 {
-    private const IDENTIFIER_KEY = 'id';
+    private const string IDENTIFIER_KEY = 'id';
 
     public function __construct(private readonly JWT\Configuration $configuration, private readonly string $ttl)
     {
@@ -25,6 +25,10 @@ final class JwtEncoder
 
     public function decode(string $jwt): string
     {
+        if (empty($jwt)) {
+            throw new \InvalidArgumentException('Empty JWT');
+        }
+
         $token = $this->configuration->parser()->parse($jwt);
 
         if (!$token instanceof JWT\UnencryptedToken) {

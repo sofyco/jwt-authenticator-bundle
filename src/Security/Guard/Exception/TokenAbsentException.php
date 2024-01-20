@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 
 final class TokenAbsentException extends CustomUserMessageAuthenticationException
 {
-    public const MESSAGE = 'security.auth.jwt.token.absent';
+    public const string MESSAGE = 'security.auth.jwt.token.absent';
 
     public function __construct()
     {

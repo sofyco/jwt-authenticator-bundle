@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 
 final class UnexpectedTokenException extends CustomUserMessageAuthenticationException
 {
-    public const MESSAGE = 'security.auth.jwt.token.unexpected';
+    public const string MESSAGE = 'security.auth.jwt.token.unexpected';
 
     public function __construct()
     {

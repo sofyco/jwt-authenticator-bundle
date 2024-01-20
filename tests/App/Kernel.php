@@ -2,7 +2,10 @@
 
 namespace Sofyco\Bundle\JwtAuthenticatorBundle\Tests\App;
 
+use Sofyco\Bundle\JwtAuthenticatorBundle\JwtAuthenticatorBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -15,9 +18,9 @@ final class Kernel extends \Symfony\Component\HttpKernel\Kernel
 
     public function registerBundles(): iterable
     {
-        yield new \Symfony\Bundle\FrameworkBundle\FrameworkBundle();
-        yield new \Symfony\Bundle\SecurityBundle\SecurityBundle();
-        yield new \Sofyco\Bundle\JwtAuthenticatorBundle\JwtAuthenticatorBundle();
+        yield new FrameworkBundle();
+        yield new SecurityBundle();
+        yield new JwtAuthenticatorBundle();
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
