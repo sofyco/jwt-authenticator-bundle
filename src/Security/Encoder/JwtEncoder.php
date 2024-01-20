@@ -23,12 +23,11 @@ final class JwtEncoder
             ->toString();
     }
 
+    /**
+     * @param non-empty-string $jwt
+     */
     public function decode(string $jwt): string
     {
-        if (empty($jwt)) {
-            throw new \InvalidArgumentException('Empty JWT');
-        }
-
         $token = $this->configuration->parser()->parse($jwt);
 
         if (!$token instanceof JWT\UnencryptedToken) {
