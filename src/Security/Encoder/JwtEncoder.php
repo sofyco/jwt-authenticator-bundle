@@ -38,6 +38,18 @@ final class JwtEncoder
             throw new Exception\TokenExpiredException();
         }
 
+        $isValid = $this->configuration->validator()->validate(
+            token: $token,
+            constraints: new JWT\Validation\Constraint\SignedWith(
+                signer: $this->configuration->signer(),
+                key: $this->configuration->signingKey(),
+            ),
+        );
+
+        if (false === $isValid) {
+            throw new Exception\UnexpectedTokenException();
+        }
+
         $id = $token->claims()->get(self::IDENTIFIER_KEY);
 
         if (\is_string($id)) {

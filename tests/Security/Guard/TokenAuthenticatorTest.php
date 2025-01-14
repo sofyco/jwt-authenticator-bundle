@@ -61,6 +61,15 @@ final class TokenAuthenticatorTest extends WebTestCase
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
+    public function testInvalidPrivateKey(): void
+    {
+        $tokenWIthInvalidPrivateKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzY4NjA0MDAuNTkyMjk3LCJleHAiOjMzMjkzNzY5MjAwLjU5MjMsImlkIjoia2hhcGVyZXRzIn0.XAjuI9pStKrS22rWojGfnx5hkGfKV0esKKeigrd5pZc';
+        $response = $this->sendRequest($this->createAuthorizationHeader($tokenWIthInvalidPrivateKey));
+
+        self::assertSame(\json_encode(['message' => 'security.auth.jwt.token.invalid']), $response->getContent());
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    }
+
     private function sendRequest(array $headers = []): Response
     {
         $this->client->request(method: Request::METHOD_GET, uri: '/', server: $headers);
