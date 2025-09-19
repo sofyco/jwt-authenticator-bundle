@@ -7,6 +7,7 @@ use Sofyco\Bundle\JwtAuthenticatorBundle\Security\Encoder\JwtEncoder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -56,7 +57,11 @@ final class TokenAuthenticator extends AbstractAuthenticator
                 ip: (string) $request->getClientIp(),
             ));
         } catch (HandlerFailedException $exception) {
-            if (false !== $exception = \current($exception->getWrappedExceptions())) {
+            $exception = \current($exception->getWrappedExceptions());
+
+            if ($exception instanceof ServiceUnavailableHttpException) {
+                throw $exception;
+            } elseif (false !== $exception) {
                 throw new CustomUserMessageAuthenticationException($exception->getMessage());
             }
         }
