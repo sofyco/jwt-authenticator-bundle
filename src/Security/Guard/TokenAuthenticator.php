@@ -29,7 +29,7 @@ final class TokenAuthenticator extends AbstractAuthenticator
     {
     }
 
-    public function supports(Request $request): ?bool
+    public function supports(Request $request): bool
     {
         $header = $request->headers->get(self::HEADER_NAME);
 
@@ -74,7 +74,7 @@ final class TokenAuthenticator extends AbstractAuthenticator
         return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
         $message = $exception->getMessage();
 

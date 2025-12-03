@@ -18,6 +18,13 @@ final class TokenAuthenticatorTest extends WebTestCase
         $this->client = self::createClient();
     }
 
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        restore_exception_handler();
+    }
+
     public function testSuccessAuthenticate(): void
     {
         $encoder = $this->getJwtEncoder();

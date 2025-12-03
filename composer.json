@@ -1,6 +1,7 @@
 {
     "name": "sofyco/jwt-authenticator-bundle",
     "type": "symfony-bundle",
+    "version": "3.0.0",
     "description": "Symfony JWT Authenticator Bundle",
     "keywords": ["php", "symfony", "bundle", "security", "jwt", "authenticator"],
     "homepage": "https://github.com/sofyco/jwt-authenticator-bundle",
@@ -12,17 +13,17 @@
         }
     ],
     "require": {
-        "php": "^8.3",
-        "lcobucci/jwt": "^5.2",
-        "symfony/framework-bundle": "^7.0",
-        "symfony/messenger": "^7.0",
-        "symfony/security-bundle": "^7.0"
+        "php": "^8.5",
+        "lcobucci/jwt": "^5.6",
+        "symfony/framework-bundle": "^8.0",
+        "symfony/messenger": "^8.0",
+        "symfony/security-bundle": "^8.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.12",
-        "phpunit/phpunit": "^10.5",
-        "symfony/browser-kit": "^7.0",
-        "symfony/yaml": "^7.0"
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.4",
+        "symfony/browser-kit": "^8.0",
+        "symfony/yaml": "^8.0"
     },
     "autoload": {
         "psr-4": {

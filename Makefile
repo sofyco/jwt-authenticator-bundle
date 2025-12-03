@@ -1,3 +1,6 @@
+rm:
+	docker compose down
+
 clear-cache:
 	rm -rf var
 
