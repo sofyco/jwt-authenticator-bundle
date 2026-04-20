@@ -46,7 +46,7 @@ final class TokenAuthenticator extends AbstractAuthenticator
 
         try {
             $userIdentifier = $this->encoder->decode($token);
-        } catch (\Throwable $throwable) {
+        } catch (\Throwable) {
             throw new Exception\InvalidTokenException();
         }
 
