@@ -55,6 +55,7 @@ final class TokenAuthenticator extends AbstractAuthenticator
                 userIdentifier: $userIdentifier,
                 token: $token,
                 ip: (string) $request->getClientIp(),
+                userAgent: (string) $request->headers->get('User-Agent'),
             ));
         } catch (HandlerFailedException $exception) {
             $exception = \current($exception->getWrappedExceptions());
