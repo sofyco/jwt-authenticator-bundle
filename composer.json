@@ -1,7 +1,7 @@
 {
     "name": "sofyco/jwt-authenticator-bundle",
     "type": "symfony-bundle",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "Symfony JWT Authenticator Bundle",
     "keywords": ["php", "symfony", "bundle", "security", "jwt", "authenticator"],
     "homepage": "https://github.com/sofyco/jwt-authenticator-bundle",
